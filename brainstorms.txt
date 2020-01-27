@@ -1,0 +1,139 @@
+                            ####### Select Queries ###########
+
+
+select {                                           |                                                                          
+    students {                                     |                                                                          
+        count(name)  as numberOfChars              |                                                                          
+        age                                        |                                                                          
+        date                                       |                                                                          
+        class on classId {                         |                                                                          
+            name                                   |                                                                          
+            units                                  |                                                                          
+            section {                              |                                                                              
+                number                             |                                                                              
+            }                                      |                                                                          
+        }                                          |                                                                          
+    }                                              |                                                                          
+                                                   |
+    where {                                        | 
+        name == "Luis" and                         |
+        class {                                    | 
+            name != "Compilers"                    | 
+        }                                          | 
+    }                                              | 
+}                                                  |       
+
+
+                            ####### Another Select Query ###########
+
+select {
+  student {
+
+    name as StudentName
+    age 
+
+    class using classId {
+      name
+      section{
+        id
+        number
+      }
+    }
+
+    doorRoom on roomId {
+        bedsAmount
+    }
+
+  }
+  
+  where {
+    StudentName == "Whatup"
+
+    class {
+      name = "Compilers"   && section = 2
+      isActive = true
+    }
+  }
+
+}
+
+                            ####### Another Select Query ###########
+
+
+select {
+  student {
+    name
+    age 
+    class {
+      name
+      section{
+        id
+        number
+      }
+    }
+  }
+  
+  where {
+    class {
+      name = "Compilers"  && section = 2
+      isActive = true
+    }
+  }
+}
+
+                            ####### Update Queries ##############
+
+
+update(newStudentData) {                            |                 
+                                                    |    
+    students {                                      |      
+        name = newStudentData.name                  |                   
+        age = newStudentData.age                    |
+        class {                                     |   
+            name = newStudentData.class.name        |
+        }                                           |
+    }                                               |        
+                                                    |
+    where {                                         |        
+        name = "Luis"                               |               
+        age >= 20                                   |                 
+    }                                               |               
+}                                                   |                
+
+
+                            ######## Delete Queries #############
+
+delete {                                            |     delete {
+                                                    |        
+    student {                                       |       house {      
+        name == "Luis"                              |          number == 342       
+        age >= 20                                   |          isNotRented != false       
+        class {                                     |       }
+            name == "ok"                            |             
+            section {                               |     }
+                number == 1                         | 
+            }                                       | 
+        }                                           | 
+    }                                               |                 
+                                                    |
+}                                                   |                 
+
+
+                            ####### Insert Queries #############
+
+
+create(newStudent) {                                |                             
+.                                                   |            
+    student {                                       |                
+        name = newStudent.name                      |        
+        isIntelligent? /* Default construct */      |        
+        age = newStudent.age                        |        
+        date?          /* Default construct */      |        
+    }                                               |            
+                                                    |
+    relates {                                       |          
+        class {                                     |        
+            name == newStudent.class.name           |        
+        }                                           |        
+    }                                               |    
+}                                                   |        
