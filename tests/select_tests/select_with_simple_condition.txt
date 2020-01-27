@@ -1,0 +1,10 @@
+select {
+    student {
+        name 
+    }
+
+    where {
+        name == "Luis"
+    }
+    
+}

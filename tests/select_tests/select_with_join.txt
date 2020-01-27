@@ -1,0 +1,11 @@
+select {
+    
+    student {
+        name
+
+        class on classId {
+            name
+        }
+    }
+
+}

@@ -1,0 +1,19 @@
+select {
+    
+    student {
+        name
+
+        class on classId {
+            name
+        }
+    }
+
+    where {
+        name == true
+
+        class {
+            name == "Orga"
+        }
+    }
+
+}
