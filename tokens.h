@@ -1,10 +1,13 @@
-#ifndef TOKENS
-#define TOKENS
+#ifndef TOKENS__
+#define TOKENS__
+
+#include <unordered_map>
 
 enum Token : unsigned char
 {
     Select = 1,
     Create,
+    Insert,
     Update,
     Delete,
     Where,
@@ -33,6 +36,40 @@ enum Token : unsigned char
     Logical_GreaterEqual_Operator,
     Logical_LessEqual_Operator,
     ERROR,
+};
+
+const std::unordered_map<Token, const char *> TokenToStringMap = {
+    {Select, "Select"},
+    {Create, "Create"},
+    {Insert, "Insert"},
+    {Update, "Update"},
+    {Delete, "Delete"},
+    {Where, "Where"},
+    {Using, "Using"},
+    {On, "On"},
+    {Open_Par, "Open_Par"},
+    {Close_Par, "Close_Par"},
+    {Open_Brace, "Open_Brace"},
+    {Close_Brace, "Close_Brace"},
+    {Identifier, "Identifier"},
+    {Int_Literal, "Int_Literal"},
+    {Float_Literal, "Float_Literal"},
+    {String_Literal, "String_Literal"},
+    {Bool_Literal, "Bool_Literal"},
+    {Date_Literal, "Date_Literal"},
+    {Spread_Operator, "Spread_Operator"},
+    {Dot_Operator, "Dot_Operator"},
+    {Assign_Operator, "Assign_Operator"},
+    {Logical_Not_Operator, "Logical_Not_Operator"},
+    {Logical_Or_Operator, "Logical_Or_Operator"},
+    {Logical_And_Operator, "Logical_And_Operator"},
+    {Logical_GreaterThan_Operator, "Logical_GreaterThan_Operator"},
+    {Logical_LessThan_Operator, "Logical_LessThan_Operator"},
+    {Logical_Equal_Operator, "Logical_Equal_Operator"},
+    {Logical_NotEqual_Operator, "Logical_NotEqual_Operator"},
+    {Logical_GreaterEqual_Operator, "Logical_GreaterEqual_Operator"},
+    {Logical_LessEqual_Operator, "Logical_LessEqual_Operator"},
+    {ERROR, "PANIC MODE! Lexer"},
 };
 
 #endif //TOKENS
