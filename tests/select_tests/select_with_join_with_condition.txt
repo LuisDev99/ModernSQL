@@ -8,7 +8,7 @@ select {
         }
     }
 
-    where {
+    where { 
         name == true
 
         class {
