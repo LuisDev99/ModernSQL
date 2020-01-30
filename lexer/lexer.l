@@ -13,7 +13,6 @@
 
 COMMENT (["//".*])|("/*"[A-Za-z][0-9]"*/")
 WHITESPACE [\t\r\f" "]
-WHATUP [azxsdssd]
 
 IDENTIFIER ({LETTER}|"_")({LETTER}|{DIGIT})*
 
@@ -31,7 +30,7 @@ FLOAT_LITERAL {DIGIT}+"."{DIGIT}+
 
 "select"      { return Select;                          } 
 "create"      { return Create;                          }
-"insert"      { return Create;                          }
+"insert"      { return Insert;                          }
 "update"      { return Update;                          }          
 "delete"      { return Delete;                          }          
 "where"       { return Where;                           }      
@@ -60,19 +59,17 @@ FLOAT_LITERAL {DIGIT}+"."{DIGIT}+
 
 
 
-{IDENTIFIER}    { return Identifier;}
-
-
-{INT_LITERAL}    { return Int_Literal;}
-{FLOAT_LITERAL}  { return Float_Literal;}
-{STRING_LITERAL} { return String_Literal;}
-{DATE_LITERAL}   { return Date_Literal;}
+{IDENTIFIER}     { return Identifier;           }
+{INT_LITERAL}    { return Int_Literal;          }
+{DATE_LITERAL}   { return Date_Literal;         }
+{FLOAT_LITERAL}  { return Float_Literal;        }
+{STRING_LITERAL} { return String_Literal;       }
 
 
 {WHITESPACE}    {}
 {COMMENT}       {}
 
-.               { return ERROR;  }
+.|\n   {}
 
 
 %%
