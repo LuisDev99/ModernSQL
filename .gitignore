@@ -1,0 +1,4 @@
+.vscode
+Scanner.cpp
+*.out
+*.gch
