@@ -22,5 +22,27 @@ int main(int argc, char *argv[])
 
     Parser parser(in);
 
+    try
+    {
+        parser.beginParsing();
+    }
+    catch (UnexpectedPointReachedException e)
+    {
+        std::cout << e.getErrorMessage() << std::endl;
+        return 1;
+    }
+    catch (IllegalTokenException e)
+    {
+        std::cout << e.getErrorMessage() << std::endl;
+        return 1;
+    }
+    catch (std::exception e)
+    {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
+
+    //parser.beginParsing();
+
     return 0;
 }
