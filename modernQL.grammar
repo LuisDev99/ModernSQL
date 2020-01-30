@@ -1,7 +1,7 @@
 statement ::= select 
             | update
             | delete
-            | create
+            | insert
 
 
 select ::= SELECT OPEN_BRACE obj-body-decl (condition-body)? CLOSE_BRACE
@@ -10,7 +10,7 @@ update ::= UPDATE OPEN_PAR IDENTIFIER CLOSE_PAR OPEN_BRACE obj-body-assignment (
 
 delete ::= UPDATE OPEN_PAR IDENTIFIER CLOSE_PAR OPEN_BRACE conditional-obj-body-decl  CLOSE_BRACE
 
-create ::= ( CREATE | INSERT ) OPEN_PAR IDENTIFIER CLOSE_PAR OPEN_BRACE assignment-obj-body-decl  CLOSE_BRACE
+insert ::= ( CREATE | INSERT ) OPEN_PAR IDENTIFIER CLOSE_PAR OPEN_BRACE assignment-obj-body-decl  CLOSE_BRACE
 
 obj-body-decl ::= IDENTIFIER (body)?
 
@@ -36,8 +36,10 @@ expression ::= foo ( LOGICAL_LESSEQUAL_OPERATOR | LOGICAL_GREATEREQUAL_OPERATOR 
 
 foo ::= bar ( LOGICAL_AND_OPERATOR |  LOGICAL_OR_OPERATOR foo)*
 
-bar ::= IDENTIFIER | LOGICAL_NOT_OPERATOR expression
+bar ::= IDENTIFIER bar-prime | BOOL_LITERAL | INT_LITERAL | STRING_LITERAL | LOGICAL_NOT_OPERATOR expression
 
+bar-prime ::= OPEN_BRACE conditional-obj-body-decl CLOSE_BRACE
+                | epsilon
 
 
 //TODO: Update SHOULD NOT CALL obj-body-decl, instead, it should have its own object declaration production because inside the update body, assignments occurs, unlike anyone else! -> Done? 
@@ -65,10 +67,20 @@ AND NOT OR
 
 attribute ::= IDENTIFIER | IDENTIFIER OPEN_PAR IDENTIFIER CLOSE_PAR | IDENTIFIER ( USING | ON ) obj-body-decl       // TODO: Factorize this production 
 
---- Eliminating Left Recursion ---
+--- Left factoring ---
 
 attribute ::= IDENTIFIER attribute-prime
 
 attribute-prime ::= OPEN_PAR IDENTIFIER CLOSE_PAR
                     | IDENTIFIER (USING | ON) obj-body-decl 
                     | epsilon
+
+
+bar ::= IDENTIFIER | IDENTIFIER OPEN_BRACE conditional-obj-body-decl CLOSE_BRACE | BOOL_LITERAL | INT_LITERAL | STRING_LITERAL | LOGICAL_NOT_OPERATOR expression
+
+--- Left factoring ---
+
+bar ::= IDENTIFIER bar-prime
+
+bar-prime ::= OPEN_BRACE conditional-obj-body-decl CLOSE_BRACE
+                | epsilon
