@@ -10,7 +10,7 @@ static const char *tokenToStringy(Token tk)
     auto tuple = TokenToStringMap.find(tk);
 
     if (tuple == TokenToStringMap.end())
-        return "Error, Token either doesnt exists or hasnt been added its string";
+        return "Error, Token either does not exists or its string has not been added in the TokenToString map";
 
     return tuple->second;
 }
@@ -38,12 +38,12 @@ private:
 class IllegalTokenException : public std::exception
 {
 public:
-    IllegalTokenException(Token expectedToken, Token illegalToken)
+    IllegalTokenException(Token expectedToken, Token illegalToken, int lineNumber, int columnNumber)
     {
         const char *expectedTokenStr = tokenToStringy(expectedToken);
         const char *illegalTokenStr = tokenToStringy(illegalToken);
 
-        message = "Expected token: " + std::string(expectedTokenStr) + ", Found: " + std::string(illegalTokenStr);
+        message = "Syntax error. Expected token: " + std::string(expectedTokenStr) + ", Found: " + std::string(illegalTokenStr) + ", on line: " + std::to_string(lineNumber) + ", column: " + std::to_string(columnNumber);
     }
 
     const char *getErrorMessage()
