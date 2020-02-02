@@ -5,10 +5,11 @@
 
 %}
 
-%option c++
 %option outfile="Scanner.cpp"
+%option c++
 %option case-insensitive
 %option noyywrap
+%option yylineno
 
 
 COMMENT (["//".*])|("/*"[A-Za-z][0-9]"*/")
@@ -44,7 +45,8 @@ FLOAT_LITERAL {DIGIT}+"."{DIGIT}+
 "false"       { return Bool_Literal;                    }      
 "..."         { return Spread_Operator;                 }
 "."           { return Dot_Operator;                    }  
-"=="          { return Logical_Equal_Operator;          }      
+"=="          { return Logical_Equal_Operator;          }
+"!="          { return Logical_NotEqual_Operator;       }
 "="           { return Assign_Operator;                 }  
 "!"           { return Logical_Not_Operator;            }  
 "not"         { return Logical_Not_Operator;            }    
