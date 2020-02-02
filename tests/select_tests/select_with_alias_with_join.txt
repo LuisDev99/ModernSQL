@@ -1,0 +1,21 @@
+select {
+
+    student as st {
+        name as sName
+        age as sAge
+
+        city as c on cityId {
+            name as cName
+            size as cSize
+        }
+
+    }
+
+    where {
+        sName == "Luis"
+        sAge == 20
+        c.name == "SQL"
+        cSize == 1.23
+    }
+
+}

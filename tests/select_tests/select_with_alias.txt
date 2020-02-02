@@ -1,0 +1,11 @@
+select {
+    student as std {
+        name as stdName
+        age
+    }
+
+    where  {
+        stdName == "Luis"
+        std.age >= 20
+    }
+}
