@@ -63,11 +63,13 @@ public:
     /**
      * Function that checks if lookahead is equal to the @param tk 
      * If they are not equal, throws an exception
-     * If equal, gets the next token and assigns it to lookahead */
+     * If equal, gets the next token and assigns it to lookahead
+    */
     void moveIfLookAheadEqualsTo(Token tk)
     {
+
         if (tk != this->lookAhead)
-            throw IllegalTokenException(tk, this->lookAhead);
+            throw IllegalTokenException(tk, this->lookAhead, this->lexer->lineno(), this->lexer->debug());
 
         lookAhead = getNextToken();
     }

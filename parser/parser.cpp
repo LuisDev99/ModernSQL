@@ -107,20 +107,10 @@ void Parser::attribute_prime()
         return;
     }
 
-    if (lookAheadEqualsTo(Token::Identifier))
+    /* USIGN | ON */
+    if (lookAheadEqualsTo(Token::Using) || lookAheadEqualsTo(Token::On))
     {
-        /* IDENTIFIER */
         GET_NEXT_TOKEN();
-
-        /* USIGN | ON */
-        if (lookAheadEqualsTo(Token::Using) || lookAheadEqualsTo(Token::On))
-        {
-            GET_NEXT_TOKEN();
-        }
-        else
-        {
-            throw "Expected Token Using or On!";
-        }
 
         /* foreign-key */
         foreign_key();
@@ -191,6 +181,21 @@ void Parser::foo()
 
 void Parser::bar()
 {
+
+    /* OPEN_PAR */
+    if (lookAheadEqualsTo(Token::Open_Par))
+    {
+        GET_NEXT_TOKEN();
+
+        /* expression */
+        expression();
+
+        /* CLOSE_PAR */
+        GET_NEXT_TOKEN();
+
+        return;
+    }
+
     /* IDENTIFIER */
     if (lookAheadEqualsTo(Token::Identifier))
     {
