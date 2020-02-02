@@ -21,7 +21,7 @@ obj-body-assignment ::= IDENTIFIER ASSIGNMENT_OPERATOR IDENTIFIER | IDENTIFIER O
 attribute ::= IDENTIFIER attribute-prime
 
 attribute-prime ::= OPEN_PAR IDENTIFIER CLOSE_PAR
-                    | IDENTIFIER (USING | ON) foreign-key 
+                    | (USING | ON) foreign-key 
                     | epsilon
 
 foreign-key ::= IDENTIFIER (body)?
@@ -36,7 +36,7 @@ expression ::= foo ( LOGICAL_LESSEQUAL_OPERATOR | LOGICAL_GREATEREQUAL_OPERATOR 
 
 foo ::= bar ( LOGICAL_AND_OPERATOR |  LOGICAL_OR_OPERATOR foo)*
 
-bar ::= IDENTIFIER bar-prime | BOOL_LITERAL | INT_LITERAL | STRING_LITERAL | LOGICAL_NOT_OPERATOR expression
+bar ::=  OPEN_PAR expression CLOSE_PAR | IDENTIFIER bar-prime | BOOL_LITERAL | INT_LITERAL | STRING_LITERAL | LOGICAL_NOT_OPERATOR expression
 
 bar-prime ::= OPEN_BRACE conditional-obj-body-decl CLOSE_BRACE
                 | epsilon
